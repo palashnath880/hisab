@@ -17,8 +17,8 @@ export const theme = createTheme({
         root: {
           paddingLeft: 22,
           paddingRight: 22,
-          paddingTop: 7,
-          paddingBottom: 7,
+          paddingTop: 8,
+          paddingBottom: 8,
           borderRadius: 9999,
         },
         containedPrimary: {
@@ -36,6 +36,7 @@ export const theme = createTheme({
     allVariants: {
       fontFamily: roboto.style.fontFamily,
     },
+    fontSize: 12,
   },
   palette: {
     primary: {
