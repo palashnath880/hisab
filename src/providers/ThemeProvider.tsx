@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Theme, ThemeProviderContext } from "@/hooks/use-theme";
@@ -20,26 +21,7 @@ export function ThemeProvider({
   storageKey = "hisab-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
-    }
-
-    root.classList.add(theme);
-  }, [theme]);
+  const [theme, setTheme] = useState<Theme>("light");
 
   const value = {
     theme,
@@ -48,6 +30,25 @@ export function ThemeProvider({
       setTheme(theme);
     },
   };
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove("light", "dark");
+
+    // get theme
+    const getTheme = localStorage.getItem(storageKey) as Theme;
+
+    if (!getTheme) {
+      const myTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+      root.classList.add(myTheme);
+      setTheme(myTheme);
+    } else {
+      root.classList.add(getTheme);
+      setTheme(getTheme);
+    }
+  }, [theme, defaultTheme, storageKey]);
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
