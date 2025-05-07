@@ -1,10 +1,9 @@
-import { Typography } from "@mui/material";
 import React from "react";
 
 export default function Footer() {
   return (
     <div className="py-3 border-t-2 flex items-center justify-center">
-      <Typography>
+      <h1>
         Develop By{" "}
         <a
           target="_blank"
@@ -13,7 +12,7 @@ export default function Footer() {
         >
           Palash Nath
         </a>
-      </Typography>
+      </h1>
     </div>
   );
 }
