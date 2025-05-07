@@ -1,10 +1,6 @@
-
-import { Activity } from '@/types';
-import { formatDistanceToNow } from 'date-fns';
-import { 
-  Plus, Minus, RefreshCw, Trash, 
-  Package, Store, FolderTree, Archive
-} from 'lucide-react';
+import { Activity } from "@/types";
+import { formatDistanceToNow } from "date-fns";
+import { Plus, Minus, RefreshCw, Trash } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface RecentActivityProps {
@@ -31,24 +27,28 @@ export const RecentActivity = ({ activities }: RecentActivityProps) => {
 
   const getActivityTypeText = (activity: Activity) => {
     const typeText = {
-      add: 'added',
-      remove: 'removed',
-      update: 'updated',
-      delete: 'deleted',
+      add: "added",
+      remove: "removed",
+      update: "updated",
+      delete: "deleted",
     };
 
     const entityTypeText = {
-      product: 'product',
-      supplier: 'supplier',
-      category: 'category',
-      stock: 'stock',
+      product: "product",
+      supplier: "supplier",
+      category: "category",
+      stock: "stock",
     };
 
-    let text = `${typeText[activity.type]} ${entityTypeText[activity.entityType]}`;
-    
-    if (activity.type === 'add' || activity.type === 'remove') {
+    let text = `${typeText[activity.type]} ${
+      entityTypeText[activity.entityType]
+    }`;
+
+    if (activity.type === "add" || activity.type === "remove") {
       if (activity.quantity) {
-        text = `${typeText[activity.type]} ${activity.quantity} ${entityTypeText[activity.entityType]} items`;
+        text = `${typeText[activity.type]} ${activity.quantity} ${
+          entityTypeText[activity.entityType]
+        } items`;
       }
     }
 
@@ -65,15 +65,17 @@ export const RecentActivity = ({ activities }: RecentActivityProps) => {
           {activities.map((activity) => (
             <div key={activity.id} className="flex items-start gap-4">
               {getActivityIcon(activity)}
-              
+
               <div className="space-y-1">
                 <p className="text-sm">
-                  <span className="font-medium">{activity.userName}</span>{' '}
-                  {getActivityTypeText(activity)}{' '}
+                  <span className="font-medium">{activity.userName}</span>{" "}
+                  {getActivityTypeText(activity)}{" "}
                   <span className="font-medium">{activity.entityName}</span>
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {formatDistanceToNow(new Date(activity.timestamp), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(activity.timestamp), {
+                    addSuffix: true,
+                  })}
                 </p>
               </div>
             </div>

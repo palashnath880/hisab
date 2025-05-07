@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { CategoryTable } from "@/components/categories/CategoryTable";
-import { Category, demoCategories } from "@/types";
+import { Category } from "@/types";
 
 export default function Page() {
-  const [categories, setCategories] = useState(demoCategories);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const handleCategoryUpdate = (updatedCategory: Category) => {
     setCategories(

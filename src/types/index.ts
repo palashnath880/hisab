@@ -57,11 +57,12 @@ export const demoProducts: Product[] = [
     barcode: "1234567890123",
     description: "Adjustable office chair with lumbar support",
     price: 199.99,
-    cost: 120.00,
+    cost: 120.0,
     categoryId: "c1",
     supplierId: "s1",
     quantity: 15,
-    image: "https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image:
+      "https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     createdAt: new Date("2023-05-10"),
     updatedAt: new Date("2023-05-10"),
   },
@@ -72,11 +73,12 @@ export const demoProducts: Product[] = [
     barcode: "2234567890123",
     description: "Adjustable height standing desk",
     price: 349.99,
-    cost: 210.00,
+    cost: 210.0,
     categoryId: "c1",
     supplierId: "s2",
     quantity: 8,
-    image: "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image:
+      "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     createdAt: new Date("2023-05-12"),
     updatedAt: new Date("2023-05-18"),
   },
@@ -87,11 +89,12 @@ export const demoProducts: Product[] = [
     barcode: "3234567890123",
     description: "Bluetooth mechanical keyboard",
     price: 89.99,
-    cost: 45.00,
+    cost: 45.0,
     categoryId: "c2",
     supplierId: "s3",
     quantity: 3,
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image:
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     createdAt: new Date("2023-05-15"),
     updatedAt: new Date("2023-05-15"),
   },
@@ -102,11 +105,12 @@ export const demoProducts: Product[] = [
     barcode: "4234567890123",
     description: "Ergonomic wireless mouse",
     price: 49.99,
-    cost: 22.50,
+    cost: 22.5,
     categoryId: "c2",
     supplierId: "s3",
     quantity: 5,
-    image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image:
+      "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     createdAt: new Date("2023-06-01"),
     updatedAt: new Date("2023-06-01"),
   },
@@ -121,10 +125,11 @@ export const demoProducts: Product[] = [
     categoryId: "c1",
     supplierId: "s2",
     quantity: 2,
-    image: "https://images.unsplash.com/photo-1547119957-637f8679db1e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    image:
+      "https://images.unsplash.com/photo-1547119957-637f8679db1e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     createdAt: new Date("2023-06-05"),
     updatedAt: new Date("2023-06-10"),
-  }
+  },
 ];
 
 export const demoSuppliers: Supplier[] = [
@@ -160,7 +165,7 @@ export const demoSuppliers: Supplier[] = [
     paymentTerms: "Net 15",
     createdAt: new Date("2023-03-05"),
     updatedAt: new Date("2023-03-05"),
-  }
+  },
 ];
 
 export const demoCategories: Category[] = [
@@ -184,7 +189,7 @@ export const demoCategories: Category[] = [
     description: "Paper, pens, and general office supplies",
     createdAt: new Date("2022-12-10"),
     updatedAt: new Date("2022-12-10"),
-  }
+  },
 ];
 
 export const demoActivities: Activity[] = [
@@ -240,8 +245,8 @@ export const demoActivities: Activity[] = [
     userId: "u1",
     userName: "Admin User",
     timestamp: new Date("2023-06-01T16:30:00"),
-  }
+  },
 ];
 
 // Import and re-export purchase order types
-export * from './purchase-order';
+export * from "./purchase-order";

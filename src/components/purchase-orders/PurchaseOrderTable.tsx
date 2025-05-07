@@ -1,12 +1,18 @@
-
-import { useState } from 'react';
-import { PurchaseOrder, PurchaseOrderStatus } from '@/types/purchase-order';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Plus } from 'lucide-react';
-import { format } from 'date-fns';
-import { PurchaseOrderDialog } from './PurchaseOrderDialog';
+import { useState } from "react";
+import { PurchaseOrder, PurchaseOrderStatus } from "@/types/purchase-order";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Plus } from "lucide-react";
+import { format } from "date-fns";
+import { PurchaseOrderDialog } from "./PurchaseOrderDialog";
 
 interface PurchaseOrderTableProps {
   purchaseOrders: PurchaseOrder[];
@@ -19,7 +25,7 @@ export const PurchaseOrderTable = ({
   purchaseOrders,
   onPurchaseOrderUpdate,
   onPurchaseOrderDelete,
-  onPurchaseOrderCreate
+  onPurchaseOrderCreate,
 }: PurchaseOrderTableProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentPO, setCurrentPO] = useState<PurchaseOrder | null>(null);
@@ -36,16 +42,16 @@ export const PurchaseOrderTable = ({
 
   const getStatusBadgeColor = (status: PurchaseOrderStatus) => {
     switch (status) {
-      case 'draft':
-        return 'bg-gray-500';
-      case 'ordered':
-        return 'bg-blue-500';
-      case 'received':
-        return 'bg-green-500';
-      case 'cancelled':
-        return 'bg-red-500';
+      case "draft":
+        return "bg-gray-500";
+      case "ordered":
+        return "bg-blue-500";
+      case "received":
+        return "bg-green-500";
+      case "cancelled":
+        return "bg-red-500";
       default:
-        return 'bg-gray-500';
+        return "bg-gray-500";
     }
   };
 
@@ -89,17 +95,22 @@ export const PurchaseOrderTable = ({
                       {po.status.charAt(0).toUpperCase() + po.status.slice(1)}
                     </Badge>
                   </TableCell>
-                  <TableCell>{format(new Date(po.orderDate), 'MMM dd, yyyy')}</TableCell>
                   <TableCell>
-                    {po.expectedDeliveryDate 
-                      ? format(new Date(po.expectedDeliveryDate), 'MMM dd, yyyy')
-                      : 'Not set'}
+                    {format(new Date(po.orderDate), "MMM dd, yyyy")}
+                  </TableCell>
+                  <TableCell>
+                    {po.expectedDeliveryDate
+                      ? format(
+                          new Date(po.expectedDeliveryDate),
+                          "MMM dd, yyyy"
+                        )
+                      : "Not set"}
                   </TableCell>
                   <TableCell>${po.totalAmount.toFixed(2)}</TableCell>
                   <TableCell>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => handleOpenDialog(po)}
                     >
                       View / Edit

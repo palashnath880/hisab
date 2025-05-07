@@ -13,11 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Github, LogIn } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { toast } = useToast();
 
   // This is a mock authentication function
   // In a real application, this would connect to an auth service
@@ -26,16 +28,16 @@ export default function Page() {
 
     // Demo authentication - in a real app this would verify credentials
     if (email && password) {
-      toast.success("Successfully signed in!");
+      toast({ title: "Successfully signed in!" });
       localStorage.setItem("user", JSON.stringify({ email, role: "admin" }));
     } else {
-      toast.error("Please fill in all fields");
+      toast({ title: "Please fill in all fields" });
     }
   };
 
   const handleProviderSignIn = (provider: string) => {
     // Mock provider authentication
-    toast.success(`Signed in with ${provider}!`);
+    toast({ title: `Signed in with ${provider}!` });
     localStorage.setItem(
       "user",
       JSON.stringify({

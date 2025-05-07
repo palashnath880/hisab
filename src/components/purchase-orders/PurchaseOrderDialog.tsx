@@ -1,13 +1,24 @@
-
-import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { PurchaseOrder, PurchaseOrderItem, PurchaseOrderStatus } from '@/types/purchase-order';
-import { demoSuppliers } from '@/types';
-import { format } from 'date-fns';
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { PurchaseOrder, PurchaseOrderStatus } from "@/types/purchase-order";
+import { demoSuppliers } from "@/types";
+import { format } from "date-fns";
 
 interface PurchaseOrderDialogProps {
   open: boolean;
@@ -22,20 +33,20 @@ export const PurchaseOrderDialog = ({
   onClose,
   purchaseOrder,
   onSave,
-  onDelete
+  onDelete,
 }: PurchaseOrderDialogProps) => {
   const isNew = !purchaseOrder;
   const [formData, setFormData] = useState<Partial<PurchaseOrder>>(
     purchaseOrder || {
       id: `po${Date.now()}`,
-      supplierId: '',
-      supplierName: '',
-      status: 'draft' as PurchaseOrderStatus,
+      supplierId: "",
+      supplierName: "",
+      status: "draft" as PurchaseOrderStatus,
       orderDate: new Date(),
       items: [],
       totalAmount: 0,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     }
   );
 
@@ -46,12 +57,12 @@ export const PurchaseOrderDialog = ({
   }, [purchaseOrder]);
 
   const handleSupplierChange = (supplierId: string) => {
-    const supplier = demoSuppliers.find(s => s.id === supplierId);
+    const supplier = demoSuppliers.find((s) => s.id === supplierId);
     if (supplier) {
       setFormData({
         ...formData,
         supplierId,
-        supplierName: supplier.name
+        supplierName: supplier.name,
       });
     }
   };
@@ -60,7 +71,7 @@ export const PurchaseOrderDialog = ({
     setFormData({
       ...formData,
       status,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   };
 
@@ -83,10 +94,12 @@ export const PurchaseOrderDialog = ({
       <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle>
-            {isNew ? 'Create Purchase Order' : `Edit Purchase Order #${purchaseOrder?.id}`}
+            {isNew
+              ? "Create Purchase Order"
+              : `Edit Purchase Order #${purchaseOrder?.id}`}
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="grid grid-cols-2 gap-4 py-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Supplier</label>
@@ -99,7 +112,7 @@ export const PurchaseOrderDialog = ({
                 <SelectValue placeholder="Select supplier" />
               </SelectTrigger>
               <SelectContent>
-                {demoSuppliers.map(supplier => (
+                {demoSuppliers.map((supplier) => (
                   <SelectItem key={supplier.id} value={supplier.id}>
                     {supplier.name}
                   </SelectItem>
@@ -107,12 +120,14 @@ export const PurchaseOrderDialog = ({
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="space-y-2">
             <label className="text-sm font-medium">Status</label>
             <Select
               value={formData.status}
-              onValueChange={(value) => handleStatusChange(value as PurchaseOrderStatus)}
+              onValueChange={(value) =>
+                handleStatusChange(value as PurchaseOrderStatus)
+              }
             >
               <SelectTrigger>
                 <SelectValue />
@@ -125,45 +140,73 @@ export const PurchaseOrderDialog = ({
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="space-y-2">
             <label className="text-sm font-medium">Order Date</label>
-            <Input 
-              type="date" 
-              value={formData.orderDate ? format(new Date(formData.orderDate), 'yyyy-MM-dd') : ''} 
-              onChange={(e) => setFormData({...formData, orderDate: new Date(e.target.value)})}
+            <Input
+              type="date"
+              value={
+                formData.orderDate
+                  ? format(new Date(formData.orderDate), "yyyy-MM-dd")
+                  : ""
+              }
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  orderDate: new Date(e.target.value),
+                })
+              }
             />
           </div>
-          
+
           <div className="space-y-2">
-            <label className="text-sm font-medium">Expected Delivery Date</label>
-            <Input 
-              type="date" 
-              value={formData.expectedDeliveryDate ? format(new Date(formData.expectedDeliveryDate), 'yyyy-MM-dd') : ''} 
-              onChange={(e) => setFormData({...formData, expectedDeliveryDate: new Date(e.target.value)})}
+            <label className="text-sm font-medium">
+              Expected Delivery Date
+            </label>
+            <Input
+              type="date"
+              value={
+                formData.expectedDeliveryDate
+                  ? format(
+                      new Date(formData.expectedDeliveryDate),
+                      "yyyy-MM-dd"
+                    )
+                  : ""
+              }
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  expectedDeliveryDate: new Date(e.target.value),
+                })
+              }
             />
           </div>
-          
+
           <div className="col-span-2 space-y-2">
             <label className="text-sm font-medium">Notes</label>
-            <Textarea 
-              value={formData.notes || ''} 
-              onChange={(e) => setFormData({...formData, notes: e.target.value})}
+            <Textarea
+              value={formData.notes || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, notes: e.target.value })
+              }
               placeholder="Add any notes about this purchase order"
             />
           </div>
         </div>
 
         <p className="text-sm text-muted-foreground mt-2">
-          {isNew 
-            ? "Items can be added after creating the purchase order." 
-            : `Total Amount: $${formData.totalAmount?.toFixed(2)}`
-          }
+          {isNew
+            ? "Items can be added after creating the purchase order."
+            : `Total Amount: $${formData.totalAmount?.toFixed(2)}`}
         </p>
-        
+
         <DialogFooter>
           {!isNew && (
-            <Button variant="destructive" onClick={handleDelete} className="mr-auto">
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              className="mr-auto"
+            >
               Delete
             </Button>
           )}
@@ -171,7 +214,7 @@ export const PurchaseOrderDialog = ({
             Cancel
           </Button>
           <Button onClick={handleSave}>
-            {isNew ? 'Create' : 'Save Changes'}
+            {isNew ? "Create" : "Save Changes"}
           </Button>
         </DialogFooter>
       </DialogContent>

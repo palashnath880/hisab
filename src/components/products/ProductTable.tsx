@@ -1,6 +1,5 @@
-
-import { useState } from 'react';
-import { Product, Category, Supplier } from '@/types';
+import { useState } from "react";
+import { Product, Category, Supplier } from "@/types";
 import {
   Table,
   TableBody,
@@ -9,11 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from '@/components/ui/button';
-import { Edit, Trash, Plus, Archive, Search, Filter } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { ProductForm } from './ProductForm';
+import { Button } from "@/components/ui/button";
+import { Edit, Trash, Plus, Archive, Search, Filter } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ProductForm } from "./ProductForm";
+import Image from "next/image";
 
 interface ProductTableProps {
   products: Product[];
@@ -32,15 +38,16 @@ export const ProductTable = ({
   onProductDelete,
   onProductCreate,
 }: ProductTableProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
 
-  const filteredProducts = products.filter(product => 
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (product.barcode && product.barcode.includes(searchTerm))
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (product.barcode && product.barcode.includes(searchTerm))
   );
 
   const handleEdit = (product: Product) => {
@@ -60,11 +67,11 @@ export const ProductTable = ({
   };
 
   const getCategoryName = (categoryId: string) => {
-    return categories.find(cat => cat.id === categoryId)?.name || 'Unknown';
+    return categories.find((cat) => cat.id === categoryId)?.name || "Unknown";
   };
 
   const getSupplierName = (supplierId: string) => {
-    return suppliers.find(sup => sup.id === supplierId)?.name || 'Unknown';
+    return suppliers.find((sup) => sup.id === supplierId)?.name || "Unknown";
   };
 
   return (
@@ -84,13 +91,13 @@ export const ProductTable = ({
             <Filter className="h-4 w-4" />
           </Button>
         </div>
-        
+
         <Button onClick={() => setIsCreateDialogOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
           Add Product
         </Button>
       </div>
-      
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -117,9 +124,11 @@ export const ProductTable = ({
                 <TableRow key={product.id}>
                   <TableCell>
                     {product.image ? (
-                      <img 
-                        src={product.image} 
-                        alt={product.name} 
+                      <Image
+                        width={100}
+                        height={100}
+                        src={product.image}
+                        alt={product.name}
                         className="h-10 w-10 rounded-md object-cover"
                       />
                     ) : (
@@ -132,19 +141,31 @@ export const ProductTable = ({
                   <TableCell>{product.sku}</TableCell>
                   <TableCell>{getCategoryName(product.categoryId)}</TableCell>
                   <TableCell>{getSupplierName(product.supplierId)}</TableCell>
-                  <TableCell className="text-right">${product.price.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">
+                    ${product.price.toFixed(2)}
+                  </TableCell>
                   <TableCell className="text-center">
-                    <span className={product.quantity <= 5 ? "text-destructive font-medium" : ""}>
+                    <span
+                      className={
+                        product.quantity <= 5
+                          ? "text-destructive font-medium"
+                          : ""
+                      }
+                    >
                       {product.quantity}
                     </span>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon" onClick={() => handleEdit(product)}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleEdit(product)}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="icon"
                         className="text-destructive hover:text-destructive"
                         onClick={() => onProductDelete(product.id)}
@@ -159,7 +180,7 @@ export const ProductTable = ({
           </TableBody>
         </Table>
       </div>
-      
+
       {/* Create Product Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="max-w-3xl">
@@ -169,25 +190,23 @@ export const ProductTable = ({
               Enter the details for the new product
             </DialogDescription>
           </DialogHeader>
-          <ProductForm 
+          <ProductForm
             categories={categories}
             suppliers={suppliers}
             onSubmit={handleCreateProduct}
           />
         </DialogContent>
       </Dialog>
-      
+
       {/* Edit Product Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
             <DialogTitle>Edit Product</DialogTitle>
-            <DialogDescription>
-              Update the product details
-            </DialogDescription>
+            <DialogDescription>Update the product details</DialogDescription>
           </DialogHeader>
           {currentProduct && (
-            <ProductForm 
+            <ProductForm
               product={currentProduct}
               categories={categories}
               suppliers={suppliers}

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { SupplierTable } from "@/components/suppliers/SupplierTable";
-import { Supplier, demoSuppliers } from "@/types";
+import { Supplier } from "@/types";
 
 export default function Page() {
-  const [suppliers, setSuppliers] = useState(demoSuppliers);
+  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
 
   const handleSupplierUpdate = (updatedSupplier: Supplier) => {
     setSuppliers(

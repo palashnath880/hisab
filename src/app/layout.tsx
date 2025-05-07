@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/hooks/use-theme";
 
 export const metadata: Metadata = {
   title: "Hisab",
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        {children}
-        <Toaster />
-        <Sonner />
+        <ThemeProvider defaultTheme="system">
+          {children}
+          <Toaster />
+          <Sonner />
+        </ThemeProvider>
       </body>
     </html>
   );

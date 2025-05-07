@@ -1,10 +1,9 @@
-
-import { useState, useEffect } from 'react';
-import { Product, Category, Supplier } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { useState } from "react";
+import { Product, Category, Supplier } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -12,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import Image from "next/image";
 
 interface ProductFormProps {
   product?: Product;
@@ -21,25 +20,34 @@ interface ProductFormProps {
   onSubmit: (product: Product) => void;
 }
 
-export const ProductForm = ({ product, categories, suppliers, onSubmit }: ProductFormProps) => {
-  const [formState, setFormState] = useState<Omit<Product, 'id' | 'createdAt' | 'updatedAt'>>({
-    name: product?.name || '',
-    sku: product?.sku || '',
-    barcode: product?.barcode || '',
-    description: product?.description || '',
+export const ProductForm = ({
+  product,
+  categories,
+  suppliers,
+  onSubmit,
+}: ProductFormProps) => {
+  const [formState, setFormState] = useState<
+    Omit<Product, "id" | "createdAt" | "updatedAt">
+  >({
+    name: product?.name || "",
+    sku: product?.sku || "",
+    barcode: product?.barcode || "",
+    description: product?.description || "",
     price: product?.price || 0,
     cost: product?.cost || 0,
-    categoryId: product?.categoryId || '',
-    supplierId: product?.supplierId || '',
+    categoryId: product?.categoryId || "",
+    supplierId: product?.supplierId || "",
     quantity: product?.quantity || 0,
-    image: product?.image || '',
+    image: product?.image || "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    
+
     // Handle numeric fields
-    if (name === 'price' || name === 'cost' || name === 'quantity') {
+    if (name === "price" || name === "cost" || name === "quantity") {
       setFormState({
         ...formState,
         [name]: parseFloat(value) || 0,
@@ -61,14 +69,14 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const submittedProduct: Product = {
       id: product?.id || `p${Date.now()}`,
       ...formState,
       createdAt: product?.createdAt || new Date(),
       updatedAt: new Date(),
     };
-    
+
     onSubmit(submittedProduct);
   };
 
@@ -87,7 +95,7 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
               required
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="sku">SKU</Label>
@@ -109,7 +117,7 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
               />
             </div>
           </div>
-          
+
           <div>
             <Label htmlFor="description">Description</Label>
             <Textarea
@@ -121,14 +129,16 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
             />
           </div>
         </div>
-        
+
         {/* Pricing and Categories */}
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="price">Selling Price</Label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">$</span>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
+                  $
+                </span>
                 <Input
                   id="price"
                   name="price"
@@ -145,7 +155,9 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
             <div>
               <Label htmlFor="cost">Cost Price</Label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">$</span>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
+                  $
+                </span>
                 <Input
                   id="cost"
                   name="cost"
@@ -160,13 +172,15 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
               </div>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="category">Category</Label>
-              <Select 
-                value={formState.categoryId} 
-                onValueChange={(value) => handleSelectChange('categoryId', value)}
+              <Select
+                value={formState.categoryId}
+                onValueChange={(value) =>
+                  handleSelectChange("categoryId", value)
+                }
                 required
               >
                 <SelectTrigger>
@@ -183,9 +197,11 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
             </div>
             <div>
               <Label htmlFor="supplier">Supplier</Label>
-              <Select 
-                value={formState.supplierId} 
-                onValueChange={(value) => handleSelectChange('supplierId', value)}
+              <Select
+                value={formState.supplierId}
+                onValueChange={(value) =>
+                  handleSelectChange("supplierId", value)
+                }
                 required
               >
                 <SelectTrigger>
@@ -201,7 +217,7 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
               </Select>
             </div>
           </div>
-          
+
           <div>
             <Label htmlFor="quantity">Initial Stock Quantity</Label>
             <Input
@@ -214,7 +230,7 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
               required
             />
           </div>
-          
+
           <div>
             <Label htmlFor="image">Product Image URL</Label>
             <Input
@@ -226,7 +242,9 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
             />
             {formState.image && (
               <div className="mt-2">
-                <img 
+                <Image
+                  width={100}
+                  height={100}
                   src={formState.image}
                   alt="Product Preview"
                   className="h-16 w-16 object-cover rounded-md"
@@ -236,10 +254,10 @@ export const ProductForm = ({ product, categories, suppliers, onSubmit }: Produc
           </div>
         </div>
       </div>
-      
+
       <div className="flex justify-end gap-2">
         <Button type="submit">
-          {product ? 'Update Product' : 'Add Product'}
+          {product ? "Update Product" : "Add Product"}
         </Button>
       </div>
     </form>

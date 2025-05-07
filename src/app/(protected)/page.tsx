@@ -5,12 +5,12 @@ import Header from "@/components/layout/Header";
 import { StatsCard } from "@/components/dashboard/StatsCard";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { LowStockAlerts } from "@/components/dashboard/LowStockAlerts";
-import { demoProducts, demoActivities, demoCategories } from "@/types";
+import { demoCategories, Product } from "@/types";
 import { Package, DollarSign, TrendingUp, Store } from "lucide-react";
 
 export default function Page() {
-  const [products] = useState(demoProducts);
-  const [activities] = useState(demoActivities);
+  const [products] = useState<Product[]>([]);
+  const [activities] = useState([]);
 
   // Calculate stats
   const totalProducts = products.length;
